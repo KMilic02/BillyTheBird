@@ -1,0 +1,137 @@
+using System;
+using UnityEngine;
+
+public partial class Player
+{
+    [Header("Movement")]
+    const float jumpForce = 7.0f;
+    const float movementSpeed = 25.0f;
+    const float stoppingSpeed = 30.0f;
+    const float maxMoveSpeed = 5.0f;
+    const float maxGlidingFallSpeed = -2.0f;
+
+    bool isGliding;
+
+    void handleMovement()
+    {
+        setIsGliding();
+        
+        if (Input.GetAxisRaw("Horizontal") != 0.0f || Input.GetAxisRaw("Vertical") != 0.0f) 
+        {
+            move();           
+        }
+        else
+        {
+            stop();
+        }
+        
+        if (isGrounded() && playerState == State.Jumping)
+        {
+            playerState.transitionTo(Signal.Land);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump();
+        }
+
+        glide();
+    }
+    
+    void move()
+    {
+        if (playerState == State.Perched)
+            return;
+
+        var forwardAmount = Input.GetAxis("Vertical") * transform.forward;
+        var sidewaysAmount = Input.GetAxis("Horizontal") * transform.right;
+        
+        var direction = (forwardAmount + sidewaysAmount).normalized;
+        
+        var currentVelocity = rigidbody.linearVelocity;
+        currentVelocity.y = 0.0f;
+
+        if (Vector3.Dot(currentVelocity.normalized, direction) <= 0.99f)
+        {
+            var angle = Vector3.Angle(currentVelocity.normalized, direction);
+            
+            var turnRate = 1 + angle / 180.0f;
+            if (Math.Abs(rigidbody.linearVelocity.y) >= 0.001f)
+            {
+                turnRate *= 0.25f;
+            }
+            
+            var skewedVector = Vector3.RotateTowards(currentVelocity.normalized, direction, 2.0f * Time.deltaTime * turnRate, 0.0f);
+            skewedVector *= currentVelocity.magnitude;
+            skewedVector.y = rigidbody.linearVelocity.y;
+            
+            rigidbody.linearVelocity = skewedVector;
+            currentVelocity = rigidbody.linearVelocity;
+        }
+        
+        if (currentVelocity.magnitude <= maxMoveSpeed)
+        {
+            rigidbody.AddForce(Time.deltaTime * (isGrounded() ? movementSpeed : movementSpeed * 0.25f) * direction, ForceMode.VelocityChange);
+        }
+    }
+
+    void stop()
+    {
+        var velocity = rigidbody.linearVelocity;
+        var yVelocityStored = velocity.y;
+        
+        velocity = Vector3.MoveTowards(velocity, Vector3.zero, 
+            (!isGrounded() ? stoppingSpeed * 0.25f : stoppingSpeed) * Time.deltaTime);
+        velocity.y = yVelocityStored;
+        
+        rigidbody.linearVelocity = velocity;
+    }
+
+    void jump()
+    {
+        if (playerState == State.Grounded || playerState == State.Perched)
+        {
+            rigidbody.AddForce((playerState == State.Perched ? 1.33f : 1.0f) * jumpForce * Vector3.up, ForceMode.Impulse);
+            playerState.transitionTo(Signal.Jump);
+        }
+    }
+
+    void setIsGliding()
+    {
+        isGliding = Input.GetKey(KeyCode.Space) && playerState == State.Jumping && rigidbody.linearVelocity.y < 0.0f; 
+    }
+
+    void glide()
+    {
+        if (isGliding)
+        {
+            if (rigidbody.linearVelocity.y < maxGlidingFallSpeed)
+            {
+                var velocity = rigidbody.linearVelocity;
+                //velocity.y = Mathf.MoveTowards(velocity.y, -maxGlidingFallSpeed, Time.deltaTime * 100.0f);
+                velocity.y = maxGlidingFallSpeed;
+                rigidbody.linearVelocity = velocity;
+            }
+        }
+    }
+
+    bool isGrounded()
+    {
+        return collisionData.collidersAllTouching.Count > 0 
+               && Math.Abs(rigidbody.linearVelocity.y) <= 0.0001f;
+    }
+
+    void checkPerching(Collider collision)
+    {
+        if (playerState != State.Jumping)
+            return;
+        
+        if (collision.gameObject.TryGetComponent<Perchable>(out var perchable))
+        {
+            var perchTransform = perchable.transform;
+            rigidbody.linearVelocity = Vector3.zero;
+            transform.position = perchTransform.position + Vector3.up * 0.5f;
+            playerState.transitionTo(Signal.Perch);
+        }
+    }
+}
