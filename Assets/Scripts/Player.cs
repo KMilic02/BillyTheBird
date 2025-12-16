@@ -9,12 +9,15 @@ public partial class Player : MonoBehaviour
     
     PlayerState playerState = new PlayerState();
 
+    int seeds;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
         collisionData.onTriggerEnterEvents.Add(checkPerching);
+        collisionData.onTriggerEnterEvents.Add(getCollectible);
     }
 
     void Update()
@@ -26,5 +29,19 @@ public partial class Player : MonoBehaviour
     void LateUpdate()
     {
         updateCameraPosition();
+    }
+
+    void getCollectible(Collider collision)
+    {
+        if (collision.gameObject.TryGetComponent<ICollectible>(out var collectible))
+        {
+            collectible.IOnCollect(this);
+        }
+    }
+
+    public void addSeeds(int amount)
+    {
+        seeds += amount;
+        updateUI();
     }
 }
