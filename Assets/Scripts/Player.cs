@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public partial class Player : MonoBehaviour
+public partial class Player : MonoBehaviour, IDamageable
 {
     [Header("Player")]
     public Rigidbody rigidbody;
@@ -43,5 +43,20 @@ public partial class Player : MonoBehaviour
     {
         seeds += amount;
         updateUI();
+    }
+    
+    public int health { get; set; }
+
+    public void IOnDamage(int damage)
+    {   
+        health -= damage;
+
+        if (health <= 0)
+            IOnDeath();
+    }
+
+    public void IOnDeath()
+    {
+        
     }
 }
