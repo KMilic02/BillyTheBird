@@ -8,9 +8,8 @@ public partial class Player : MonoBehaviour, IDamageable
     [SerializeField] CollisionData collisionData;
     
     PlayerState playerState = new PlayerState();
-
-    int seeds;
-
+    Collider playerCollider;
+    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -18,12 +17,18 @@ public partial class Player : MonoBehaviour, IDamageable
         
         collisionData.onTriggerEnterEvents.Add(checkPerching);
         collisionData.onTriggerEnterEvents.Add(getCollectible);
+        
+        playerCollider = GetComponent<Collider>();
     }
 
     void Update()
     {
         handleMovement();
         handleCameraRotation();
+        
+        #if UNITY_EDITOR
+        debugUpdate();
+        #endif
     }
 
     void LateUpdate()
@@ -37,12 +42,6 @@ public partial class Player : MonoBehaviour, IDamageable
         {
             collectible.IOnCollect(this);
         }
-    }
-
-    public void addSeeds(int amount)
-    {
-        seeds += amount;
-        updateUI();
     }
     
     public int health { get; set; }

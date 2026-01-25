@@ -7,6 +7,9 @@ public partial class Player : MonoBehaviour
     
     void updateUI()
     {
+        if (seedCountText == null)
+            return;
+        
         seedCountText.text = seeds.ToString();
     }
 }

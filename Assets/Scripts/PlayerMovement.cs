@@ -5,9 +5,9 @@ public partial class Player
 {
     [Header("Movement")]
     const float jumpForce = 7.0f;
-    const float movementSpeed = 25.0f;
-    const float stoppingSpeed = 30.0f;
-    const float maxMoveSpeed = 5.0f;
+    float movementSpeed => 25.0f + seeds * 0.15f;
+    float stoppingSpeed => 30.0f + seeds * 0.2f;
+    float maxMoveSpeed => 5.0f + seeds * 0.025f;
     const float maxGlidingFallSpeed = -2.0f;
 
     bool isGliding;
@@ -26,9 +26,10 @@ public partial class Player
         }
         
         if (isGrounded() && playerState == State.Jumping)
-        {
             playerState.transitionTo(Signal.Land);
-        }
+        
+        if (!isGrounded() && playerState == State.Grounded)
+            playerState.transitionTo(Signal.Jump);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -117,8 +118,16 @@ public partial class Player
 
     bool isGrounded()
     {
-        return collisionData.collidersAllTouching.Count > 0 
-               && Math.Abs(rigidbody.linearVelocity.y) <= 0.0001f;
+        var groundCheckPosition = playerCollider.bounds.center - Vector3.up * playerCollider.bounds.extents.y;
+        var groundCheckExtents = playerCollider.bounds.extents.x * 0.5f;
+
+        //Todo ovo nije lose testirat -> groundCheckExtents * 1.0f mozd daju true kao half extents, to znaci da ak se dodiruje zid u zraku da ce se moc skakat
+        bool boxCast = Physics.CheckBox(groundCheckPosition, 
+            new Vector3(groundCheckExtents * 1.0f, 0.02f, groundCheckExtents * 1.0f), 
+            Quaternion.Euler(0.0f, transform.rotation.y, 0.0f),
+            LayerMask.GetMask("Ground"));
+        
+        return collisionData.collidersAllTouching.Count > 0 && boxCast;
     }
 
     void checkPerching(Collider collision)
