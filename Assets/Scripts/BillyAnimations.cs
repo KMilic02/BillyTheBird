@@ -30,9 +30,6 @@ public partial class Player : MonoBehaviour
         }
         animator.SetBool("IsJumping", player.isJumping);
         animator.SetBool("IsGliding", player.isRealyGliding);
-        Debug.Log("jump");
-        Debug.Log(isJumping);
-
     }
 
     void HandleIdleRandom()
