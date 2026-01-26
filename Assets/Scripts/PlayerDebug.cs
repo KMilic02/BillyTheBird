@@ -40,6 +40,10 @@ public partial class Player : MonoBehaviour
         GUILayout.TextField(
             $"Glide remaining: {glideDurationLeft}"
         );
+
+        GUILayout.TextField(
+            $"Health: {health}"
+        );
         
         if (GUILayout.Button("Add feathers"))
         {

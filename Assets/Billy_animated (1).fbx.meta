@@ -846,7 +846,7 @@ ModelImporter:
       name: RIG-bird|Bird-Jump
       takeName: RIG-bird|Bird-Jump
       internalID: 4151683270840788410
-      firstFrame: 0
+      firstFrame: 10
       lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0

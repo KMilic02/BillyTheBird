@@ -13,8 +13,8 @@ public partial class Player
 
     bool isGliding;
 
-     public bool isRunning;
-     public bool isRealyGliding;
+    public bool isRunning;
+    public bool isRealyGliding;
     public bool isJumping;
     
     const float dashSpeed = 15.0f;
@@ -158,6 +158,8 @@ public partial class Player
 
     void glide()
     {
+        isRealyGliding = false;
+
         if (isGliding)
         {
             if (rigidbody.linearVelocity.y < maxGlidingFallSpeed && glideDurationLeft > 0.0f)
@@ -170,14 +172,6 @@ public partial class Player
                 rigidbody.linearVelocity = velocity;
                 glideDurationLeft -=  Time.deltaTime;
             }
-           else
-            {
-                isRealyGliding = false;
-            }
-        }
-        else
-        {
-            isRealyGliding = false;
         }
     }
 

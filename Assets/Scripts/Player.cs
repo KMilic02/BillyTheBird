@@ -23,6 +23,8 @@ public partial class Player : MonoBehaviour, IDamageable
 
         if (mainCamera == null)
             mainCamera = Camera.main;
+
+        health = 3;
     }
 
     void Update()

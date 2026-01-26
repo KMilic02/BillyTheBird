@@ -2,15 +2,38 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected Enemy enemy;
+    public enum EnemyState
     {
-        
+        Idle,
+        Aggro,
+        Attack
     }
 
-    // Update is called once per frame
-    void Update()
+    [HideInInspector] public EnemyState enemyState;
+
+    void Start()
     {
-        
+        enemy = GetComponent<Enemy>();
+    }
+    
+    public virtual void updateBehaviour()
+    {
+
+    }
+    
+    public virtual void idle()
+    {
+
+    }
+
+    public virtual void acquirePlayer()
+    {
+
+    }
+
+    public virtual void attack()
+    {
+
     }
 }

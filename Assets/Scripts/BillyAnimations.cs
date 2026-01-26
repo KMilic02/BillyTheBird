@@ -2,16 +2,14 @@ using UnityEngine;
 
 public partial class Player : MonoBehaviour
 {
-    private Animator animator;
-    private Player player;
+    Animator animator;
 
-    private float idleTimer;
-    private float idleDelay;
+    float idleTimer;
+    float idleDelay;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
-        player = GetComponent<Player>();
+        animator = transform.GetComponentInChildren<Animator>();
 
         idleDelay = Random.Range(0f, 1f);
     }
@@ -23,18 +21,18 @@ public partial class Player : MonoBehaviour
         animator.SetBool("IsGliding", false);
         animator.SetBool("IsRunning", false);
 
-        if (player.playerState == State.Grounded)
+        if (playerState == State.Grounded)
         {
             animator.SetBool("IsGrounded", true);
-            animator.SetBool("IsRunning", player.isRunning);
+            animator.SetBool("IsRunning", isRunning);
         }
-        animator.SetBool("IsJumping", player.isJumping);
-        animator.SetBool("IsGliding", player.isRealyGliding);
+        animator.SetBool("IsJumping", isJumping);
+        animator.SetBool("IsGliding", isRealyGliding);
     }
 
     void HandleIdleRandom()
     {
-        if (player.playerState != State.Grounded || player.isRunning)
+        if (playerState != State.Grounded || isRunning)
             return;
 
         idleTimer += Time.deltaTime;
