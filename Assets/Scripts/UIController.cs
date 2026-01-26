@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void start()
+    {
+        if (SceneManager.GetActiveScene().name == GameManager.sceneList[0])
+        {
+            GameManager.loadScene(GameManager.sceneList[1]);
+        }
+    }
+
+    public void options()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void exit()
     {
-        
+        Application.Quit();
     }
 }
