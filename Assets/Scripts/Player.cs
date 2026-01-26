@@ -20,6 +20,9 @@ public partial class Player : MonoBehaviour, IDamageable
         collisionData.onEnterEvents.Add(checkDashEndOnCollision);
         
         playerCollider = GetComponent<Collider>();
+
+        if (mainCamera == null)
+            mainCamera = Camera.main;
     }
 
     void Update()
