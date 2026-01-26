@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public partial class Player
 {
@@ -11,6 +12,10 @@ public partial class Player
     const float maxGlidingFallSpeed = -2.0f;
 
     bool isGliding;
+
+     public bool isRunning;
+     public bool isRealyGliding;
+    public bool isJumping;
     
     const float dashSpeed = 15.0f;
     const float dashDuration = 0.35f;
@@ -77,6 +82,8 @@ public partial class Player
         if (playerState.getState() is State.Perched or State.Dashing)
             return;
 
+        isRunning = true;    
+
         var forwardAmount = Input.GetAxis("Vertical") * transform.forward;
         var sidewaysAmount = Input.GetAxis("Horizontal") * transform.right;
         
@@ -113,6 +120,8 @@ public partial class Player
     {
         if (playerState.getState() is State.Dashing)
             return;
+
+        isRunning = false;    
         
         var velocity = rigidbody.linearVelocity;
         var yVelocityStored = velocity.y;
@@ -128,9 +137,18 @@ public partial class Player
     {
         if (playerState == State.Grounded || playerState == State.Perched)
         {
+            isJumping = true;
             rigidbody.AddForce((playerState == State.Perched ? 1.33f : 1.0f) * jumpForce * Vector3.up, ForceMode.Impulse);
             playerState.transitionTo(Signal.Jump);
+            StartCoroutine(ResetJump());
         }
+    }
+
+    IEnumerator ResetJump() {
+
+        yield return new WaitForSeconds(0.5f);
+
+        isJumping = false;
     }
 
     void setIsGliding()
@@ -144,12 +162,22 @@ public partial class Player
         {
             if (rigidbody.linearVelocity.y < maxGlidingFallSpeed && glideDurationLeft > 0.0f)
             {
+                isRealyGliding = true;
+
                 var velocity = rigidbody.linearVelocity;
                 //velocity.y = Mathf.MoveTowards(velocity.y, -maxGlidingFallSpeed, Time.deltaTime * 100.0f);
                 velocity.y = maxGlidingFallSpeed;
                 rigidbody.linearVelocity = velocity;
                 glideDurationLeft -=  Time.deltaTime;
             }
+           else
+            {
+                isRealyGliding = false;
+            }
+        }
+        else
+        {
+            isRealyGliding = false;
         }
     }
 

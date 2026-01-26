@@ -29,6 +29,9 @@ public partial class Player : MonoBehaviour, IDamageable
     {
         handleMovement();
         handleCameraRotation();
+
+        UpdateAnimatorStates();
+        HandleIdleRandom();
         
         #if UNITY_EDITOR
         debugUpdate();
