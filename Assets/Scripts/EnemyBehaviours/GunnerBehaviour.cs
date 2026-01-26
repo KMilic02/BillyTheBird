@@ -3,6 +3,12 @@ using UnityEngine;
 public class GunnerBehaviour : EnemyBehaviour
 {
     public GameObject arrowPrefab;
+
+    public void Start()
+    {
+        enemy = GetComponent<Enemy>();
+        enemy.health = 1;
+    }
     
     public override void updateBehaviour()
     {
@@ -65,6 +71,7 @@ public class GunnerBehaviour : EnemyBehaviour
         {
             var arrowInstance = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
             arrowInstance.transform.LookAt(enemy.playerRef.transform.position);
+            arrowInstance.transform.position = transform.position;
             
             enemyState = EnemyState.Aggro;
         }

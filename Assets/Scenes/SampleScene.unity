@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa718959d43552a499624124a19cca98, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.397
+      value: 3.473
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa718959d43552a499624124a19cca98, type: 3}
       propertyPath: m_LocalPosition.z
@@ -173,6 +173,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4936884950917866777, guid: aa718959d43552a499624124a19cca98, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: aa718959d43552a499624124a19cca98, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: aa718959d43552a499624124a19cca98, type: 3}
@@ -5613,6 +5617,10 @@ PrefabInstance:
     - target: {fileID: 6800110512039136084, guid: 89fcdb283cfeb934c8ddb3ca1767c858, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593506810219471204, guid: 89fcdb283cfeb934c8ddb3ca1767c858, type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8685661398200854129, guid: 89fcdb283cfeb934c8ddb3ca1767c858, type: 3}
       propertyPath: mainCamera

@@ -15,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         enemy = GetComponent<Enemy>();
+        enemy.health = 1;
     }
     
     public virtual void updateBehaviour()

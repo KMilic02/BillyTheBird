@@ -19,6 +19,7 @@ public partial class Player
     
     const float dashSpeed = 15.0f;
     const float dashDuration = 0.35f;
+    const float bounceAmount = 3.0f;
     float dashTimer;
     Vector3 dashDirection;
     bool landedAfterDash = true;
