@@ -3,6 +3,7 @@ using UnityEngine;
 public class GunnerBehaviour : EnemyBehaviour
 {
     public GameObject arrowPrefab;
+    public Transform bow;
 
     public void Start()
     {
@@ -69,9 +70,8 @@ public class GunnerBehaviour : EnemyBehaviour
 
         if (enemy.attackTimer >= enemy.attackDelays[0])
         {
-            var arrowInstance = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            var arrowInstance = Instantiate(arrowPrefab, bow.position, Quaternion.identity);
             arrowInstance.transform.LookAt(enemy.playerRef.transform.position);
-            arrowInstance.transform.position = transform.position;
             
             enemyState = EnemyState.Aggro;
         }
