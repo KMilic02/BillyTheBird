@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.294
+      value: -5.29
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2160432
+      value: 3.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.939
+      value: -4.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -65,6 +65,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: -9210592510745797640}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6991411264464458649}
   m_SourcePrefab: {fileID: 100100000, guid: db7974563c69eba48abd0301d8fbb7c1, type: 3}
 --- !u!1 &577504290532408294 stripped
 GameObject:
@@ -83,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa66790062ee4734bb13801afb5eca35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBehaviour: {fileID: 0}
+  enemyBehaviour: {fileID: 8781364812380240548}
   cooldownTimer: 0
   attackTimer: 0
   attackCooldown: 0
@@ -129,3 +132,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &6991411264464458649
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577504290532408294}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.53, y: 1.6290426, z: 0.4933203}
+  m_Center: {x: 0.00038135052, y: 0.81612086, z: -0.043349385}

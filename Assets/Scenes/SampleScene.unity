@@ -1247,59 +1247,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swordy (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4073849913391560620, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073849913391560620, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
-      propertyPath: enemyBehaviour
-      value: 
-      objectReference: {fileID: 478889660}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 577504290532408294, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 478889661}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
---- !u!1 &478889659 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 577504290532408294, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
-  m_PrefabInstance: {fileID: 478889658}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &478889660 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8781364812380240548, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
-  m_PrefabInstance: {fileID: 478889658}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478889659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6e6ad01b6d3f745a41a10ced8a4449, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &478889661
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478889659}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.53, y: 1.6290426, z: 0.4933203}
-  m_Center: {x: 0.00038135052, y: 0.81612086, z: -0.043349385}
 --- !u!43 &573212693
 Mesh:
   m_ObjectHideFlags: 0
@@ -5658,21 +5610,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 93731267706640436, guid: 36ca71bfc3468aa4ea2306a92dc7727b, type: 3}
-      propertyPath: m_Size.y
-      value: 1.7966908
-      objectReference: {fileID: 0}
-    - target: {fileID: 93731267706640436, guid: 36ca71bfc3468aa4ea2306a92dc7727b, type: 3}
-      propertyPath: m_Center.y
-      value: 0.7791558
-      objectReference: {fileID: 0}
     - target: {fileID: 8290155843136766707, guid: 36ca71bfc3468aa4ea2306a92dc7727b, type: 3}
       propertyPath: m_Name
       value: Gunner
-      objectReference: {fileID: 0}
-    - target: {fileID: 8290155843136766707, guid: 36ca71bfc3468aa4ea2306a92dc7727b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8666997697296439369, guid: 36ca71bfc3468aa4ea2306a92dc7727b, type: 3}
       propertyPath: m_LocalPosition.x

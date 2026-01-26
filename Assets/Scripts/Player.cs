@@ -30,7 +30,7 @@ public partial class Player : MonoBehaviour, IDamageable
         if (mainCamera == null)
             mainCamera = Camera.main;
 
-        health = 3;
+        health = 4 - GameManager.difficulty;
     }
 
     void Update()

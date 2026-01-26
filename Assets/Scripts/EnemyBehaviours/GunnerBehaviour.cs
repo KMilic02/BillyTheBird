@@ -13,6 +13,12 @@ public class GunnerBehaviour : EnemyBehaviour
     
     public override void updateBehaviour()
     {
+        if (enemy.playerRef == null)
+        {
+            enemy.playerRef = GameObject.FindFirstObjectByType<Player>();
+            return;
+        }
+        
         switch (enemyState)
         {
             case EnemyState.Idle:

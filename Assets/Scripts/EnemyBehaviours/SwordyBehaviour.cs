@@ -26,6 +26,12 @@ public class SwordyBehaviour : EnemyBehaviour
     
     public override void updateBehaviour()
     {
+        if (enemy.playerRef == null)
+        {
+            enemy.playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            return;
+        }
+        
         switch (enemyState)
         {
             case EnemyState.Idle:

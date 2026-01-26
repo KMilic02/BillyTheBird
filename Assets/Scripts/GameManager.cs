@@ -14,4 +14,11 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public static int difficulty = 2;
+
+    void Start()
+    {
+        DontDestroyOnLoad(this);
+    }
 }

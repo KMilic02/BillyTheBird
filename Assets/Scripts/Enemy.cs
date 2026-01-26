@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerRef = GameObject.FindFirstObjectByType<Player>();
     }
 
     // Update is called once per frame
