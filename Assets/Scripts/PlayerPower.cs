@@ -5,9 +5,11 @@ public partial class Player : MonoBehaviour
 {
     int seeds;
     int feathers;
+    float maxGlideDuration => 1.0f + (glidingUpgraded ? 2.0f : 0.0f);
+    float glideDurationLeft;
 
     bool glidingUpgraded => feathers >= 1;
-    bool canDash => feathers >= 2 && !isGrounded();
+    bool canDash => feathers >= 2 && !isGrounded() && landedAfterDash;
     
     public void addSeeds(int amount)
     {

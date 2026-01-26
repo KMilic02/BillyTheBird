@@ -17,6 +17,7 @@ public partial class Player : MonoBehaviour, IDamageable
         
         collisionData.onTriggerEnterEvents.Add(checkPerching);
         collisionData.onTriggerEnterEvents.Add(getCollectible);
+        collisionData.onEnterEvents.Add(checkDashEndOnCollision);
         
         playerCollider = GetComponent<Collider>();
     }

@@ -11,6 +11,12 @@ public partial class Player
     const float maxGlidingFallSpeed = -2.0f;
 
     bool isGliding;
+    
+    const float dashSpeed = 15.0f;
+    const float dashDuration = 0.35f;
+    float dashTimer;
+    Vector3 dashDirection;
+    bool landedAfterDash = true;
 
     void handleMovement()
     {
@@ -25,11 +31,19 @@ public partial class Player
             stop();
         }
         
+        dashLoop();
+        
         if (isGrounded() && playerState == State.Jumping)
             playerState.transitionTo(Signal.Land);
         
         if (!isGrounded() && playerState == State.Grounded)
             playerState.transitionTo(Signal.Jump);
+
+        if (playerState != State.Dashing && isGrounded())
+            landedAfterDash = true;
+
+        if (playerState == State.Grounded)
+            glideDurationLeft = maxGlideDuration;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -37,11 +51,30 @@ public partial class Player
         }
 
         glide();
+
+        if (canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dash();
+        }
+    }
+
+    void dashLoop()
+    {
+        if (playerState.getState() is State.Dashing)
+        {
+            rigidbody.linearVelocity = dashDirection * dashSpeed;
+            
+            dashTimer -= Time.deltaTime;
+            if (dashTimer <= 0.0f)
+            {
+                endDash();
+            }
+        }
     }
     
     void move()
     {
-        if (playerState == State.Perched)
+        if (playerState.getState() is State.Perched or State.Dashing)
             return;
 
         var forwardAmount = Input.GetAxis("Vertical") * transform.forward;
@@ -78,6 +111,9 @@ public partial class Player
 
     void stop()
     {
+        if (playerState.getState() is State.Dashing)
+            return;
+        
         var velocity = rigidbody.linearVelocity;
         var yVelocityStored = velocity.y;
         
@@ -106,12 +142,13 @@ public partial class Player
     {
         if (isGliding)
         {
-            if (rigidbody.linearVelocity.y < maxGlidingFallSpeed)
+            if (rigidbody.linearVelocity.y < maxGlidingFallSpeed && glideDurationLeft > 0.0f)
             {
                 var velocity = rigidbody.linearVelocity;
                 //velocity.y = Mathf.MoveTowards(velocity.y, -maxGlidingFallSpeed, Time.deltaTime * 100.0f);
                 velocity.y = maxGlidingFallSpeed;
                 rigidbody.linearVelocity = velocity;
+                glideDurationLeft -=  Time.deltaTime;
             }
         }
     }
@@ -142,5 +179,35 @@ public partial class Player
             transform.position = perchTransform.position + Vector3.up * 0.5f;
             playerState.transitionTo(Signal.Perch);
         }
+    }
+
+    void checkDashEndOnCollision(Collision collision)
+    {
+        if (playerState != State.Dashing)
+            return;
+
+        if (!collision.gameObject.TryGetComponent<ICollectible>(out _))
+        {
+            endDash();
+        }
+    }
+
+    void dash()
+    {
+        if (!playerState.transitionTo(Signal.Dash))
+            return;
+        
+        rigidbody.useGravity = false;
+        dashTimer = dashDuration;
+        dashDirection = mainCamera.transform.forward;
+    }
+
+    void endDash()
+    {
+        playerState.transitionTo(Signal.EndDash);
+        rigidbody.useGravity = true;
+        dashTimer = 0.0f;
+        rigidbody.linearVelocity /= 1.5f;
+        landedAfterDash = false;
     }
 }

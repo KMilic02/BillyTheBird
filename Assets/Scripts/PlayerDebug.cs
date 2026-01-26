@@ -28,6 +28,18 @@ public partial class Player : MonoBehaviour
         GUILayout.TextField(
             "1 - enable cursor, 2 - disable cursor"
         );
+
+        GUILayout.TextField(
+            $"Can dash: {canDash}"
+        );
+
+        GUILayout.TextField(
+            $"Is Dashing: {playerState == State.Dashing}"
+        );
+
+        GUILayout.TextField(
+            $"Glide remaining: {glideDurationLeft}"
+        );
         
         if (GUILayout.Button("Add feathers"))
         {

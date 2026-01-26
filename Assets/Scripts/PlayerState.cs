@@ -53,6 +53,8 @@ public class PlayerState
         new Transition(State.Jumping, Signal.Land, State.Grounded),
         new Transition(State.Jumping, Signal.Perch, State.Perched),
         new Transition(State.Perched, Signal.Jump, State.Jumping),
+        new Transition(State.Jumping, Signal.Dash, State.Dashing),
+        new Transition(State.Dashing, Signal.EndDash, State.Jumping),
     };
 
     public State getState()
@@ -110,12 +112,15 @@ public enum State
 {
     Grounded,
     Jumping,
-    Perched
+    Perched,
+    Dashing
 }
 
 public enum Signal
 {
     Jump,
     Land,
-    Perch
+    Perch,
+    Dash,
+    EndDash
 }
