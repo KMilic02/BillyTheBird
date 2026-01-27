@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class Feather : MonoBehaviour
+public class Feather : MonoBehaviour, ICollectible
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void IOnCollect(Player player)
     {
-        
+        player.addFeather();
+        gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        var rotation = transform.rotation.eulerAngles;
+        rotation.y += Time.deltaTime * 45.0f;
+        transform.rotation = Quaternion.Euler(rotation);
     }
 }

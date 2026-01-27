@@ -77,12 +77,12 @@ public partial class Player : MonoBehaviour, IDamageable
             rigidbody.linearVelocity = velocity;
             enemy.IOnDamage(1);
         }
-        /*else
+        else
         {
             IOnDamage(1);
             if (invincibilityTimer > 0.0f) //extra check za bounce, glupo al radi
                 rigidbody.linearVelocity = contactNormal * bounceAmount;
-        }*/
+        }
     }
     
     void checkProjectileCollision(Collider collision)
