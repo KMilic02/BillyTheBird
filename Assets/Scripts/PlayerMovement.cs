@@ -176,7 +176,7 @@ public partial class Player
         }
     }
 
-    bool isGrounded()
+    public bool isGrounded()
     {
         var groundCheckPosition = playerCollider.bounds.center - Vector3.up * playerCollider.bounds.extents.y;
         var groundCheckExtents = playerCollider.bounds.extents.x * 0.5f;
