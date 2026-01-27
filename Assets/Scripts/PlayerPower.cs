@@ -3,8 +3,18 @@ using UnityEngine.UI;
 
 public partial class Player : MonoBehaviour
 {
-    int seeds;
-    int feathers;
+    int seeds
+    {
+        get => GameManager.seeds;
+        set => GameManager.seeds = value; 
+    }
+
+    int feathers
+    {
+        get => GameManager.feathers;
+        set => GameManager.feathers = value;
+    }
+    
     float maxGlideDuration => 1.0f + (glidingUpgraded ? 2.0f : 0.0f);
     float glideDurationLeft;
 

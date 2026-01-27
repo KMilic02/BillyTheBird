@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     }
 
     public static int difficulty = 2;
+    public static int seeds = 0;
+    public static int feathers = 0;
 
     void Start()
     {
