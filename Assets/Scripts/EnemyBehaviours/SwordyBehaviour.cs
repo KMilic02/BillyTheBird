@@ -7,6 +7,9 @@ public class SwordyBehaviour : EnemyBehaviour
     Vector3 startLocation;
     Vector3 currentRandomLocation;
     NavMeshAgent agent;
+    Animator animator;
+    const float attackRange = 1.5f;
+
 
     const float minPatrolTimer = 4.0f;
     const float maxPatrolTimer = 6.0f;
@@ -22,6 +25,7 @@ public class SwordyBehaviour : EnemyBehaviour
         patrolTimer = Random.Range(minPatrolTimer, maxPatrolTimer);
         currentRandomLocation = startLocation;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
     
     public override void updateBehaviour()
@@ -41,6 +45,7 @@ public class SwordyBehaviour : EnemyBehaviour
                 acquirePlayer();
                 break;
         }
+        UpdateAnimation();
     }
 
     public override void idle()
@@ -82,5 +87,42 @@ public class SwordyBehaviour : EnemyBehaviour
         agent.SetDestination(playerPosition);
         
         enemy.cooldownTimer += Time.deltaTime;
+
+        float distanceToPlayer = Vector3.Distance(playerPosition, transform.position);
+
+        if (distanceToPlayer <= attackRange && enemy.cooldownTimer >= enemy.attackCooldown)
+        {
+            Attack();
+        }
     }
+
+void UpdateAnimation()
+{
+    float speed = agent.velocity.magnitude;
+    animator.SetFloat("Speed", Mathf.Clamp(speed, 0f, 1f));
+}
+
+void Attack()
+{
+    enemy.cooldownTimer = 0f;
+    animator.SetTrigger("Attack");
+}
+
+public void AttackHit()
+{
+    float hitRadius = 0.8f;
+    Vector3 hitCenter = transform.position + transform.forward * 1.0f;
+
+    Collider[] hits = Physics.OverlapSphere(hitCenter, hitRadius);
+
+    foreach (Collider hit in hits)
+    {
+        if (hit.CompareTag("Player"))
+        {
+            hit.GetComponent<Player>().IOnDamage(1);
+        }
+    }
+    Debug.Log("HIT FRAME");
+}
+
 }
