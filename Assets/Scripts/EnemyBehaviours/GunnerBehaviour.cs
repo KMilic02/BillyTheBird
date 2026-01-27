@@ -4,11 +4,14 @@ public class GunnerBehaviour : EnemyBehaviour
 {
     public GameObject arrowPrefab;
     public Transform bow;
+    Animator animator;
+
 
     public void Start()
     {
         enemy = GetComponent<Enemy>();
         enemy.health = 1;
+        animator = GetComponent<Animator>();
     }
     
     public override void updateBehaviour()
@@ -36,6 +39,7 @@ public class GunnerBehaviour : EnemyBehaviour
     public override void idle()
     {
         var playerPosition = enemy.playerRef.transform.position;
+        animator.SetBool("IsAiming", false);
 
         if (Vector3.Distance(playerPosition, transform.position) <= enemy.acquisitionRange)
         {
@@ -54,10 +58,12 @@ public class GunnerBehaviour : EnemyBehaviour
         }
         
         transform.LookAt(playerPosition);
+        animator.SetBool("IsAiming", true);
 
         var rotation = transform.rotation.eulerAngles;
         rotation.x = 0.0f;
         rotation.z = 0.0f;
+        rotation.y += 90f;
         transform.rotation = Quaternion.Euler(rotation);
         
         enemy.cooldownTimer += Time.deltaTime;
@@ -76,6 +82,7 @@ public class GunnerBehaviour : EnemyBehaviour
 
         if (enemy.attackTimer >= enemy.attackDelays[0])
         {
+            animator.SetTrigger("IsShooting");
             var arrowInstance = Instantiate(arrowPrefab, bow.position, Quaternion.identity);
             arrowInstance.transform.LookAt(enemy.playerRef.transform.position);
             
