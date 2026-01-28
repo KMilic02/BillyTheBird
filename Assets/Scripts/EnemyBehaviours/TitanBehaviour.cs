@@ -36,7 +36,6 @@ public class TitanBehaviour : EnemyBehaviour
     
     public void Start()
     {
-        AudioManager.Instance.PlayMusic(combatClip);
         clapTimer = Random.Range(clapDelayMin, clapDelayMax);
         enemy = GetComponent<Enemy>();
         enemy.health = 1;
@@ -81,6 +80,7 @@ public class TitanBehaviour : EnemyBehaviour
 
         if (Vector3.Distance(playerPosition, transform.position) <= enemy.acquisitionRange)
         {
+            AudioManager.Instance.PlayMusic(combatClip);
             enemyState = EnemyState.Aggro;
             enemy.cooldownTimer = enemy.attackCooldown / 2.0f;
         }
