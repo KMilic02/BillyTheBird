@@ -49105,6 +49105,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 435334415}
+    - target: {fileID: 8685661398200854129, guid: 89fcdb283cfeb934c8ddb3ca1767c858, type: 3}
+      propertyPath: bossBounceHorizontalForce
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

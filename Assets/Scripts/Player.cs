@@ -8,7 +8,13 @@ public partial class Player : MonoBehaviour, IDamageable
     [Header("Player")]
     public Rigidbody rigidbody;
     [SerializeField] CollisionData collisionData;
-    
+
+    [Header("Boss Bounce Settings")]
+    [Tooltip("Upward force when bouncing off a boss")]
+    public float bossBounceUpForce = 8.0f;
+    [Tooltip("Horizontal force away from boss")]
+    public float bossBounceHorizontalForce = 5.0f;
+
     PlayerState playerState = new PlayerState();
     Collider playerCollider;
     AudioSource glideSource;
@@ -80,9 +86,24 @@ public partial class Player : MonoBehaviour, IDamageable
 
         if (Vector3.Dot(contactNormal, Vector3.up) >= 0.5f)
         {
-            var velocity = rigidbody.linearVelocity;
-            velocity.y = bounceAmount;
-            rigidbody.linearVelocity = velocity;
+            bool isBoss = collision.gameObject.TryGetComponent<BossTag>(out _);
+
+            if (isBoss)
+            {
+                // Boss bounce: stronger and directional
+                Vector3 awayDirection = (transform.position - collision.transform.position).normalized;
+                awayDirection.y = 0f; // Only horizontal direction
+
+                rigidbody.linearVelocity = awayDirection * bossBounceHorizontalForce + Vector3.up * bossBounceUpForce;
+            }
+            else
+            {
+                // Normal enemy bounce: straight up
+                var velocity = rigidbody.linearVelocity;
+                velocity.y = bounceAmount;
+                rigidbody.linearVelocity = velocity;
+            }
+
             enemy.IOnDamage(1);
         }
         /*else
@@ -144,7 +165,10 @@ public partial class Player : MonoBehaviour, IDamageable
     {
         GameManager.seeds -= seedsCollectedInScene;
         GameManager.feathers -= feathersCollectedInScene;
-        
+
+        // Stop all running coroutines (like flash)
+        StopAllCoroutines();
+
         transform.Rotate(transform.right, 180,0f);
         StartCoroutine(GameManager.Instance.FadeOut(() =>
         {

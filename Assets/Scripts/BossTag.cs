@@ -10,6 +10,15 @@ public class BossTag : MonoBehaviour
     private bool maxHealthInitialized = false;
     private bool wasActive = false;
 
+    void Awake()
+    {
+        // Clear static reference on new scene instance
+        if (activeBoss != null && activeBoss != this)
+        {
+            activeBoss = null;
+        }
+    }
+
     void Start()
     {
         enemyComponent = GetComponent<Enemy>();
@@ -42,6 +51,13 @@ public class BossTag : MonoBehaviour
 
     void OnDisable()
     {
+        if (activeBoss == this)
+            activeBoss = null;
+    }
+
+    void OnDestroy()
+    {
+        // Ensure cleanup when destroyed
         if (activeBoss == this)
             activeBoss = null;
     }

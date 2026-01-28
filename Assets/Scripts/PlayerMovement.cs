@@ -16,6 +16,11 @@ public partial class Player
     float maxMoveSpeed => 5.0f + seeds * 0.025f;
     const float maxGlidingFallSpeed = -2.0f;
 
+    [Tooltip("Air control multiplier for movement (0.25 = 25% ground speed)")]
+    public float airControlMultiplier = 0.5f;
+    [Tooltip("Air control multiplier for turning (0.25 = 25% turn rate)")]
+    public float airTurnMultiplier = 0.5f;
+
     bool isGliding;
 
     public bool isRunning;
@@ -101,24 +106,24 @@ public partial class Player
         if (Vector3.Dot(currentVelocity.normalized, direction) <= 0.99f)
         {
             var angle = Vector3.Angle(currentVelocity.normalized, direction);
-            
+
             var turnRate = 1 + angle / 180.0f;
             if (Math.Abs(rigidbody.linearVelocity.y) >= 0.001f)
             {
-                turnRate *= 0.25f;
+                turnRate *= airTurnMultiplier;
             }
-            
+
             var skewedVector = Vector3.RotateTowards(currentVelocity.normalized, direction, 2.0f * Time.deltaTime * turnRate, 0.0f);
             skewedVector *= currentVelocity.magnitude;
             skewedVector.y = rigidbody.linearVelocity.y;
-            
+
             rigidbody.linearVelocity = skewedVector;
             currentVelocity = rigidbody.linearVelocity;
         }
-        
+
         if (currentVelocity.magnitude <= maxMoveSpeed)
         {
-            rigidbody.AddForce(Time.deltaTime * (isGrounded() ? movementSpeed : movementSpeed * 0.25f) * direction, ForceMode.VelocityChange);
+            rigidbody.AddForce(Time.deltaTime * (isGrounded() ? movementSpeed : movementSpeed * airControlMultiplier) * direction, ForceMode.VelocityChange);
         }
     }
 
@@ -131,11 +136,11 @@ public partial class Player
         
         var velocity = rigidbody.linearVelocity;
         var yVelocityStored = velocity.y;
-        
-        velocity = Vector3.MoveTowards(velocity, Vector3.zero, 
-            (!isGrounded() ? stoppingSpeed * 0.25f : stoppingSpeed) * Time.deltaTime);
+
+        velocity = Vector3.MoveTowards(velocity, Vector3.zero,
+            (!isGrounded() ? stoppingSpeed * airControlMultiplier : stoppingSpeed) * Time.deltaTime);
         velocity.y = yVelocityStored;
-        
+
         rigidbody.linearVelocity = velocity;
     }
 

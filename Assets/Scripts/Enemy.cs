@@ -18,16 +18,21 @@ public class Enemy : MonoBehaviour, IDamageable
     public float aggroExtraAcquisitionRange;
 
     [HideInInspector] public Player playerRef;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         playerRef = GameObject.FindFirstObjectByType<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Safety check: ensure playerRef is still valid
+        if (playerRef == null || playerRef.gameObject == null)
+        {
+            playerRef = GameObject.FindFirstObjectByType<Player>();
+            if (playerRef == null) return; // No player found, skip this frame
+        }
+
         enemyBehaviour.updateBehaviour();
     }
     
@@ -45,13 +50,22 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (TryGetComponent<BossTag>(out var _))
         {
-            StartCoroutine(GameManager.Instance.FadeOut(
+            // Start coroutine on GameManager (persistent) instead of this enemy (about to be destroyed)
+            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOut(
                 () => GameManager.Instance.loadScene(
                     GameManager.sceneList[GameManager.sceneList.IndexOf(SceneManager.GetActiveScene().name) + 1]
                 )
             ));
         }
-        
+
+        // Stop all coroutines and disable immediately
+        StopAllCoroutines();
         gameObject.SetActive(false);
+    }
+
+    void OnDestroy()
+    {
+        // Clear reference when destroyed
+        playerRef = null;
     }
 }

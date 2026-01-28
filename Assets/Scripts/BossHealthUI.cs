@@ -51,7 +51,12 @@ public class BossHealthUI : MonoBehaviour
     {
         BossTag activeBoss = BossTag.activeBoss;
 
-
+        // Safety check: if currentBoss is destroyed but not null, clean up
+        if (currentBoss != null && currentBoss.gameObject == null)
+        {
+            CleanupBossUI();
+            return;
+        }
 
         if (activeBoss != null && currentBoss == null)
         {
