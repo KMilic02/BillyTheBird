@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class ChampionBehaviour : EnemyBehaviour
 {
-    public AudioClip attackClip;
+    public AudioClip combatClip;
     public AudioClip hitClip;
 
     const float maxAggroRange = 20.0f;
@@ -37,6 +37,7 @@ public class ChampionBehaviour : EnemyBehaviour
     
     public void Start()
     {
+        AudioManager.Instance.PlayMusic(combatClip);
         enemy = GetComponent<Enemy>();
         enemy.health = GameManager.difficulty switch
         {
@@ -134,7 +135,6 @@ public class ChampionBehaviour : EnemyBehaviour
     {
         enemy.cooldownTimer = 0f;
         animator.SetTrigger("Attack");
-        AudioManager.Instance.PlaySFX(attackClip, 0.9f);
     }
 
     void charge()

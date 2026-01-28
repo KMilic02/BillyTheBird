@@ -156,7 +156,7 @@ MonoBehaviour:
   collisionData: {fileID: 2625224188163450216}
   mainCamera: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: f482d15c6ffbb24448a92531f5486339, type: 3}
-  dashClip: {fileID: 8300000, guid: 0535afc68234a6245922625d342bbe74, type: 3}
+  dashClip: {fileID: 8300000, guid: 9637f506f3ff4a84e8bb65fb2076ce37, type: 3}
   glideClip: {fileID: 8300000, guid: 0535afc68234a6245922625d342bbe74, type: 3}
   isRunning: 0
   isRealyGliding: 0
