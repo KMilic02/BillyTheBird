@@ -133,7 +133,7 @@ public class ChampionBehaviour : EnemyBehaviour
             agent.angularSpeed = 0.0f;
             agent.SetDestination(transform.position);
             agent.speed = 0.0f;
-            agent.acceleration = Mathf.Infinity;
+            agent.acceleration = 10000.0f;
             chargeDelayTimer -= Time.deltaTime;
             return;
         }
@@ -149,7 +149,6 @@ public class ChampionBehaviour : EnemyBehaviour
         agent.angularSpeed = 120.0f;
         agent.SetDestination(transform.position);
         agent.speed = defaultSpeed;
-        agent.acceleration = defaultAccel;
         chargeCd = Random.Range(chargeCdMin, chargeCdMax);
         charging = false;
     }

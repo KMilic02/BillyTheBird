@@ -10,11 +10,15 @@ public partial class Player : MonoBehaviour, IDamageable
     
     PlayerState playerState = new PlayerState();
     Collider playerCollider;
+    AudioSource glideSource;
 
     float invincibilityTimer = 0.0f;
     
     void Start()
     {
+        glideSource = GetComponent<AudioSource>();
+        glideSource.clip = glideClip;
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
@@ -41,6 +45,8 @@ public partial class Player : MonoBehaviour, IDamageable
         UpdateAnimatorStates();
         
         invincibilityTimer -= Time.deltaTime;
+        
+        AudioManager.Instance.PlayAudioSource(glideSource, isRealyGliding);
         
         #if UNITY_EDITOR
         debugUpdate();

@@ -8,7 +8,7 @@ public partial class Player
     public AudioClip jumpClip;
     public AudioClip dashClip;
     public AudioClip glideClip;
-
+    
     [Header("Movement")]
     const float jumpForce = 7.0f;
     float movementSpeed => 25.0f + seeds * 0.15f;
@@ -172,7 +172,6 @@ public partial class Player
             if (rigidbody.linearVelocity.y < maxGlidingFallSpeed && glideDurationLeft > 0.0f)
             {
                 isRealyGliding = true;
-                AudioManager.Instance.PlaySFX(glideClip, 0.6f);
                 var velocity = rigidbody.linearVelocity;
                 //velocity.y = Mathf.MoveTowards(velocity.y, -maxGlidingFallSpeed, Time.deltaTime * 100.0f);
                 velocity.y = maxGlidingFallSpeed;
