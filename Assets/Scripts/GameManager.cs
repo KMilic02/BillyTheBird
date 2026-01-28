@@ -46,7 +46,9 @@ public class GameManager : MonoBehaviour
     {
         if (this == null)
             return;
-        
+
+        AudioManager.Instance.startMusic = AudioManager.Instance.musicSource.clip;
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.startMusic);
         StartCoroutine(FadeIn(() => { }));
     }
 

@@ -157,6 +157,7 @@ public partial class Player : MonoBehaviour, IDamageable
         transform.Rotate(transform.right, 180,0f);
         StartCoroutine(GameManager.Instance.FadeOut(() =>
         {
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.startMusic);
             GameManager.Instance.loadScene(SceneManager.GetActiveScene().name);
         }));
         enabled = false;

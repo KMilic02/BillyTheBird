@@ -107,7 +107,9 @@ public partial class Player
 
         if (Math.Sign(Vector3.Dot(currentVelocity.normalized, direction)) < 0)
         {
-            currentVelocity += direction * (Time.deltaTime * 500f);
+            currentVelocity += direction * (Time.deltaTime * 6f);
+            currentVelocity.y = rigidbody.linearVelocity.y;
+            rigidbody.linearVelocity = currentVelocity;
         }
         else if (Vector3.Dot(currentVelocity.normalized, direction) <= 0.99f)
         {
