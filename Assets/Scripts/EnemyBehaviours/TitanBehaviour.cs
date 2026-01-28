@@ -25,6 +25,8 @@ public class TitanBehaviour : EnemyBehaviour
     const float clapDelayMin = 7.0f;
     const float clapDelayMax = 10.0f;
 
+    public GameObject clapObject;
+    
     float clapReturnTimer = 0.0f;
 
     public AudioClip lightningClip;
@@ -162,6 +164,8 @@ public class TitanBehaviour : EnemyBehaviour
 
             if (enemy.attackTimer >= 2.4f)
             {
+                clapObject.SetActive(true);
+                clapObject.GetComponent<ShineLogic>().enabled = true;
                 clapParticles.Play();
                 AudioManager.Instance.PlaySFX(clapClip, 1f);
 
