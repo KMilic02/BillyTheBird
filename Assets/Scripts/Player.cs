@@ -13,6 +13,8 @@ public partial class Player : MonoBehaviour, IDamageable
     Collider playerCollider;
     AudioSource glideSource;
 
+    bool dead;
+
     float invincibilityTimer = 0.0f;
     
     void Start()
@@ -151,6 +153,9 @@ public partial class Player : MonoBehaviour, IDamageable
 
     public void IOnDeath()
     {
+        if (dead)
+            return;
+        dead = true;
         GameManager.seeds -= seedsCollectedInScene;
         GameManager.feathers -= feathersCollectedInScene;
         

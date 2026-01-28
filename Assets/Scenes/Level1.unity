@@ -57460,6 +57460,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2146512904}
     m_Modifications:
+    - target: {fileID: 2119479651931181483, guid: 559376d91477628479aabcac9cb72056, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6096939776004344051, guid: 559376d91477628479aabcac9cb72056, type: 3}
       propertyPath: m_Name
       value: BirdSeed (4)
@@ -67352,6 +67356,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2146512904}
     m_Modifications:
+    - target: {fileID: 2119479651931181483, guid: 559376d91477628479aabcac9cb72056, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6096939776004344051, guid: 559376d91477628479aabcac9cb72056, type: 3}
       propertyPath: m_Name
       value: BirdSeed (5)
@@ -70862,6 +70870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxSource: {fileID: 1577619545}
   musicSource: {fileID: 1577619544}
+  startMusic: {fileID: 0}
 --- !u!82 &1577619544
 AudioSource:
   m_ObjectHideFlags: 0
