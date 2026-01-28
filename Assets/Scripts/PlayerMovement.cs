@@ -10,7 +10,7 @@ public partial class Player
     public AudioClip glideClip;
     
     [Header("Movement")]
-    const float jumpForce = 7.0f;
+    const float jumpForce = 7.6f;
     float movementSpeed => 25.0f + seeds * 0.15f;
     float stoppingSpeed => 30.0f + seeds * 0.2f;
     float maxMoveSpeed => 5.0f + seeds * 0.025f;
@@ -43,6 +43,13 @@ public partial class Player
         }
         
         dashLoop();
+        
+        if (!isGrounded() && rigidbody.linearVelocity.y < 1.0f && rigidbody.linearVelocity.y > maxGlidingFallSpeed)
+        {
+            var vel = rigidbody.linearVelocity; 
+            vel.y -= Time.deltaTime * (3 + vel.y) * 6.0f;
+            rigidbody.linearVelocity = vel;
+        }
         
         if (isGrounded() && playerState == State.Jumping)
             playerState.transitionTo(Signal.Land);
@@ -98,7 +105,11 @@ public partial class Player
         var currentVelocity = rigidbody.linearVelocity;
         currentVelocity.y = 0.0f;
 
-        if (Vector3.Dot(currentVelocity.normalized, direction) <= 0.99f)
+        if (Math.Sign(Vector3.Dot(currentVelocity.normalized, direction)) < 0)
+        {
+            currentVelocity += direction * (Time.deltaTime * 500f);
+        }
+        else if (Vector3.Dot(currentVelocity.normalized, direction) <= 0.99f)
         {
             var angle = Vector3.Angle(currentVelocity.normalized, direction);
             
