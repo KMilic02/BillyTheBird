@@ -722,49 +722,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6966a7e11d8e6354388675734b5baf28, type: 3}
   m_PrefabInstance: {fileID: 158921172}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &167505233 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1946156162554202872, guid: 39ab6def96242124bbb10da4758bf8f2, type: 3}
-  m_PrefabInstance: {fileID: 1271662455}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &167505235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1173735377308700738, guid: 39ab6def96242124bbb10da4758bf8f2, type: 3}
   m_PrefabInstance: {fileID: 1271662455}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &167505238
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167505233}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.48, y: 1.8741108, z: 0.45999998}
-  m_Center: {x: 0.00034976128, y: 0.7857534, z: 0.03488347}
---- !u!114 &167505243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167505233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ea4c3b36a9eda469c634184c191fc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &178980965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 236550835205759324, guid: c6f7d5d156b4448419e0c2aefe8524cd, type: 3}
@@ -12273,13 +12235,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1173735377308700738, guid: 39ab6def96242124bbb10da4758bf8f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1373086831}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1946156162554202872, guid: 39ab6def96242124bbb10da4758bf8f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 167505238}
-    - targetCorrespondingSourceObject: {fileID: 1946156162554202872, guid: 39ab6def96242124bbb10da4758bf8f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 167505243}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39ab6def96242124bbb10da4758bf8f2, type: 3}
 --- !u!198 &1271662456 stripped
 ParticleSystem:

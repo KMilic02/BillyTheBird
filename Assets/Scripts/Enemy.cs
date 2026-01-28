@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -41,6 +43,15 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void IOnDeath()
     {
+        if (TryGetComponent<BossTag>(out var _))
+        {
+            StartCoroutine(GameManager.Instance.FadeOut(
+                () => GameManager.Instance.loadScene(
+                    GameManager.sceneList[GameManager.sceneList.IndexOf(SceneManager.GetActiveScene().name) + 1]
+                )
+            ));
+        }
+        
         gameObject.SetActive(false);
     }
 }
