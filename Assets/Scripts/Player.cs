@@ -25,6 +25,7 @@ public partial class Player : MonoBehaviour, IDamageable
         
         collisionData.onTriggerEnterEvents.Add(checkPerching);
         collisionData.onTriggerEnterEvents.Add(getCollectible);
+        collisionData.onTriggerEnterEvents.Add(deathPlane);
         collisionData.onEnterEvents.Add(checkDashEndOnCollision);
         
         collisionData.onEnterEvents.Add(checkEnemyCollision);
@@ -102,6 +103,12 @@ public partial class Player : MonoBehaviour, IDamageable
         IOnDamage(1);
     }
     
+    void deathPlane(Collider collision)
+    {
+        if (collision.CompareTag("DeathPlane"))
+            IOnDeath();
+    }
+    
     public int health { get; set; }
 
     public void IOnDamage(int damage)
@@ -135,6 +142,9 @@ public partial class Player : MonoBehaviour, IDamageable
 
     public void IOnDeath()
     {
+        GameManager.seeds -= seedsCollectedInScene;
+        GameManager.feathers -= feathersCollectedInScene;
+        
         transform.Rotate(transform.right, 180,0f);
         StartCoroutine(GameManager.Instance.FadeOut(() =>
         {

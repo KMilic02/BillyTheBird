@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
 
     void onSceneLoaded(Scene  scene, LoadSceneMode mode)
     {
+        if (this == null)
+            return;
+        
         StartCoroutine(FadeIn(() => { }));
     }
 
