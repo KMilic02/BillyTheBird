@@ -45,11 +45,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (TryGetComponent<BossTag>(out var _))
         {
-            StartCoroutine(GameManager.Instance.FadeOut(
-                () => GameManager.Instance.loadScene(
-                    GameManager.sceneList[GameManager.sceneList.IndexOf(SceneManager.GetActiveScene().name) + 1]
-                )
-            ));
+            playerRef.nextLevel();
         }
         
         gameObject.SetActive(false);
