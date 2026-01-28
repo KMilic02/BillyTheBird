@@ -5,6 +5,9 @@ using Random = UnityEngine.Random;
 
 public class ChampionBehaviour : EnemyBehaviour
 {
+    public AudioClip attackClip;
+    public AudioClip hitClip;
+
     const float maxAggroRange = 20.0f;
     Vector3 startLocation;
     Vector3 currentRandomLocation;
@@ -120,6 +123,7 @@ public class ChampionBehaviour : EnemyBehaviour
     {
         enemy.cooldownTimer = 0f;
         animator.SetTrigger("Attack");
+        AudioManager.Instance.PlaySFX(attackClip, 0.9f);
     }
 
     void charge()
@@ -159,6 +163,7 @@ public class ChampionBehaviour : EnemyBehaviour
 
         foreach (Collider hit in hits)
         {
+            AudioManager.Instance.PlaySFX(hitClip, 1f);
             if (hit.CompareTag("Player"))
             {
                 hit.GetComponent<Player>().IOnDamage(1);

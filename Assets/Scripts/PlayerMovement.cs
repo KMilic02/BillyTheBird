@@ -4,6 +4,11 @@ using System.Collections;
 
 public partial class Player
 {
+    [Header("Audio")]
+    public AudioClip jumpClip;
+    public AudioClip dashClip;
+    public AudioClip glideClip;
+
     [Header("Movement")]
     const float jumpForce = 7.0f;
     float movementSpeed => 25.0f + seeds * 0.15f;
@@ -141,6 +146,7 @@ public partial class Player
             isJumping = true;
             rigidbody.AddForce((playerState == State.Perched ? 1.33f : 1.0f) * jumpForce * Vector3.up, ForceMode.Impulse);
             playerState.transitionTo(Signal.Jump);
+            AudioManager.Instance.PlaySFX(jumpClip, 0.9f);
             StartCoroutine(ResetJump());
         }
     }
@@ -166,7 +172,7 @@ public partial class Player
             if (rigidbody.linearVelocity.y < maxGlidingFallSpeed && glideDurationLeft > 0.0f)
             {
                 isRealyGliding = true;
-
+                AudioManager.Instance.PlaySFX(glideClip, 0.6f);
                 var velocity = rigidbody.linearVelocity;
                 //velocity.y = Mathf.MoveTowards(velocity.y, -maxGlidingFallSpeed, Time.deltaTime * 100.0f);
                 velocity.y = maxGlidingFallSpeed;
@@ -219,7 +225,7 @@ public partial class Player
     {
         if (!playerState.transitionTo(Signal.Dash))
             return;
-        
+        AudioManager.Instance.PlaySFX(dashClip, 0.85f);
         rigidbody.useGravity = false;
         dashTimer = dashDuration;
         dashDirection = mainCamera.transform.forward;

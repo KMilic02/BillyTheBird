@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
 {
     public GameObject mainLayout;
     public GameObject optionsLayout;
+    public AudioClip buttonClick;
 
     public Text difficultyText;
     
@@ -22,6 +23,7 @@ public class UIController : MonoBehaviour
         mainLayout.SetActive(!mainLayout.activeSelf);
         optionsLayout.SetActive(!optionsLayout.activeSelf);
         difficultyText.text = "Difficulty " + GameManager.difficulty.ToString();
+        AudioManager.Instance.PlaySFX(buttonClick, 0.6f);
     }
 
     public void setDifficulty(int inc)
@@ -30,10 +32,12 @@ public class UIController : MonoBehaviour
         GameManager.difficulty = Mathf.Clamp(GameManager.difficulty, 1, 3);
         
         difficultyText.text = "Difficulty " + GameManager.difficulty.ToString();
+        AudioManager.Instance.PlaySFX(buttonClick, 0.6f);
     }
 
     public void exit()
     {
+        AudioManager.Instance.PlaySFX(buttonClick, 0.6f);
         Application.Quit();
     }
 }

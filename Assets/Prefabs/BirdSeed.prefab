@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 1
+  collectClip: {fileID: 8300000, guid: 38160503f5e3f124d9731ee6323f0167, type: 3}
 --- !u!1001 &8198250208325926777
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,6 +15,10 @@ public class SwordyBehaviour : EnemyBehaviour
     const float maxPatrolTimer = 6.0f;
     const float patrolRange = 4.0f;
 
+    public AudioClip attackClip;
+    public AudioClip detectClip;
+    bool hasDetectedPlayer = false;
+
     float patrolTimer;
     
     public void Start()
@@ -63,6 +67,11 @@ public class SwordyBehaviour : EnemyBehaviour
         if (Vector3.Distance(playerPosition, transform.position) <= enemy.acquisitionRange && Vector3.Distance(startLocation, transform.position) <= patrolRange)
         {
             enemyState = EnemyState.Aggro;
+             if (!hasDetectedPlayer)
+            {
+                AudioManager.Instance.PlaySFX(detectClip, 0.7f);
+                hasDetectedPlayer = true;
+            }
         }
     }
 
@@ -106,6 +115,7 @@ void Attack()
 {
     enemy.cooldownTimer = 0f;
     animator.SetTrigger("Attack");
+    AudioManager.Instance.PlaySFX(attackClip, 0.9f);
 }
 
 public void AttackHit()

@@ -26,6 +26,10 @@ public class TitanBehaviour : EnemyBehaviour
     const float clapDelayMax = 10.0f;
 
     float clapReturnTimer = 0.0f;
+
+    public AudioClip lightningClip;
+    public AudioClip clapClip;
+    public AudioClip teleportClip;
     
     public void Start()
     {
@@ -107,6 +111,7 @@ public class TitanBehaviour : EnemyBehaviour
             enemy.attackTimer = 0.0f;
             tpParticles_1.Play();
             tpParticles_2.Play();
+            AudioManager.Instance.PlaySFX(teleportClip, 0.8f);
 
             transform.position = playerPosition + enemy.playerRef.transform.forward * 1.0f;
             enemy.cooldownTimer = Mathf.Min(enemy.attackCooldown - 1.0f, enemy.cooldownTimer);
@@ -134,6 +139,7 @@ public class TitanBehaviour : EnemyBehaviour
             if (enemy.attackTimer >= enemy.attackDelays[0])
             {
                 animator.SetTrigger("IsShooting");
+                AudioManager.Instance.PlaySFX(lightningClip, 0.9f);
                 var arrowInstance = Instantiate(arrowPrefab, hand.position, Quaternion.identity);
                 arrowInstance.transform.LookAt(enemy.playerRef.transform.position);
 
@@ -155,6 +161,7 @@ public class TitanBehaviour : EnemyBehaviour
             if (enemy.attackTimer >= 2.4f)
             {
                 clapParticles.Play();
+                AudioManager.Instance.PlaySFX(clapClip, 1f);
 
                 if (enemy.playerRef.isGrounded() || Vector3.Distance(clapParticles.transform.position, enemy.playerRef.transform.position) <= 3.0f)
                 {
@@ -175,6 +182,7 @@ public class TitanBehaviour : EnemyBehaviour
                 enemyState = EnemyState.Aggro;
                 clapReturn = false;
                 transform.position = startingPosition;
+                AudioManager.Instance.PlaySFX(teleportClip, 0.8f);
                 tpParticles_1.Play();
             }
         }
