@@ -30,9 +30,11 @@ public class TitanBehaviour : EnemyBehaviour
     public AudioClip lightningClip;
     public AudioClip clapClip;
     public AudioClip teleportClip;
+    public AudioClip combatClip;
     
     public void Start()
     {
+        AudioManager.Instance.PlayMusic(combatClip);
         clapTimer = Random.Range(clapDelayMin, clapDelayMax);
         enemy = GetComponent<Enemy>();
         enemy.health = 1;

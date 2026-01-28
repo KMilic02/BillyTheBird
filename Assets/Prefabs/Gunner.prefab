@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 0
-  shootClip: {fileID: 8300000, guid: ea8e6d6e627fab543bc22f8d6184fbad, type: 3}
+  shootClip: {fileID: 8300000, guid: 125cb2c534292e34ab526e10fa0b1be6, type: 3}
   arrowPrefab: {fileID: 350991521277492402, guid: 9e62573e99d9e2a40b60a3c24643d772, type: 3}
   bow: {fileID: 7773127354716855400}
 --- !u!65 &93731267706640436
