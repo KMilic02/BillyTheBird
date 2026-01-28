@@ -153,6 +153,7 @@ public class ChampionBehaviour : EnemyBehaviour
         {
             agent.speed = chargeSpeed;
             agent.Move(transform.forward * Time.deltaTime * chargeSpeed);
+            agent.SetDestination(transform.position);
             chargeTimer -= Time.deltaTime;
             if (!hasHit)
             {
@@ -177,9 +178,9 @@ public class ChampionBehaviour : EnemyBehaviour
 
         Collider[] hits = Physics.OverlapSphere(hitCenter, hitRadius);
 
+        AudioManager.Instance.PlaySFX(hitClip, 1f);
         foreach (Collider hit in hits)
         {
-            AudioManager.Instance.PlaySFX(hitClip, 1f);
             if (hit.CompareTag("Player"))
             {
                 hasHit = true;

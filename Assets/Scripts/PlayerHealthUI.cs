@@ -77,7 +77,7 @@ public class PlayerHealthUI : MonoBehaviour
 
         // Health display offset: show (health + 1) hearts (maybe?)
         
-        int heartsToShow = currentHealth + 1;
+        int heartsToShow = currentHealth;
 
 
         for (int i = 0; i < healthObjects.Length; i++)

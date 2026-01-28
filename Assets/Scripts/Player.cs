@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class Player : MonoBehaviour, IDamageable
 {
@@ -134,6 +135,11 @@ public partial class Player : MonoBehaviour, IDamageable
 
     public void IOnDeath()
     {
-        
+        transform.Rotate(transform.right, 180,0f);
+        StartCoroutine(GameManager.Instance.FadeOut(() =>
+        {
+            GameManager.Instance.loadScene(SceneManager.GetActiveScene().name);
+        }));
+        enabled = false;
     }
 }

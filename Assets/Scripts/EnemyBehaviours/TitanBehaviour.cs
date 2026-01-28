@@ -146,7 +146,7 @@ public class TitanBehaviour : EnemyBehaviour
                 arrowInstance.transform.LookAt(enemy.playerRef.transform.position);
 
                 lightningBoltStrikesCurrent++;
-                enemy.attackTimer = 0.0f;
+                enemy.attackTimer = 0.2f;
 
                 if (lightningBoltStrikesCurrent >= lightningBoltStrikes)
                 {

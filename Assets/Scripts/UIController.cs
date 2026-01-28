@@ -14,7 +14,8 @@ public class UIController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == GameManager.sceneList[0])
         {
-            GameManager.loadScene(GameManager.sceneList[1]);
+            AudioManager.Instance.PlaySFX(buttonClick, 0.6f);
+            GameManager.Instance.loadScene(GameManager.sceneList[1]);
         }
     }
 
