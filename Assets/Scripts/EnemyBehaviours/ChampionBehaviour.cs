@@ -22,12 +22,16 @@ public class ChampionBehaviour : EnemyBehaviour
     const float defaultSpeed = 3.2f;
 
     float chargeTimer = 0.0f;
-    float chargeDelayTimer = 0.0f;
+    float chargeDelayTimer = 1.0f;
 
     const float chargeCdMin = 5.0f;
     const float chargeCdMax = 7.0f;
     float chargeCd = 10.0f;
     bool charging;
+    bool chargeStarted;
+    bool hasHit;
+
+
     
     //health 3, 5, 8
     
@@ -80,6 +84,12 @@ public class ChampionBehaviour : EnemyBehaviour
     {
         if (charging)
         {
+            if (!chargeStarted)
+            {
+                animator.SetTrigger("Charge"); 
+                animator.SetBool("IsCharging", true);
+                chargeStarted = true;
+            }
             charge();
             return;
         }
@@ -110,6 +120,7 @@ public class ChampionBehaviour : EnemyBehaviour
             chargeDelayTimer = chargeDelay;
             chargeTimer = chargeDuration;
             charging = true;
+            hasHit = false;
         }
     }
 
@@ -143,6 +154,10 @@ public class ChampionBehaviour : EnemyBehaviour
             agent.speed = chargeSpeed;
             agent.Move(transform.forward * Time.deltaTime * chargeSpeed);
             chargeTimer -= Time.deltaTime;
+            if (!hasHit)
+            {
+                AttackHit();
+            }
             return;
         }
 
@@ -151,6 +166,8 @@ public class ChampionBehaviour : EnemyBehaviour
         agent.speed = defaultSpeed;
         chargeCd = Random.Range(chargeCdMin, chargeCdMax);
         charging = false;
+        chargeStarted = false;
+        animator.SetBool("IsCharging", false);
     }
 
     public void AttackHit()
@@ -165,6 +182,7 @@ public class ChampionBehaviour : EnemyBehaviour
             AudioManager.Instance.PlaySFX(hitClip, 1f);
             if (hit.CompareTag("Player"))
             {
+                hasHit = true;
                 hit.GetComponent<Player>().IOnDamage(1);
             }
         }

@@ -115,6 +115,7 @@ public class TitanBehaviour : EnemyBehaviour
 
             transform.position = playerPosition + enemy.playerRef.transform.forward * 1.0f;
             enemy.cooldownTimer = Mathf.Min(enemy.attackCooldown - 1.0f, enemy.cooldownTimer);
+            animator.SetTrigger("IsClaping");
         }
         
         if (enemy.cooldownTimer >= enemy.attackCooldown)
@@ -127,6 +128,7 @@ public class TitanBehaviour : EnemyBehaviour
             clapTimer = Mathf.Max(clapTimer, 1.5f);
             
             shooting = true;
+            animator.SetTrigger("IsShooting");
         }
     }
 
