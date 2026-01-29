@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,7 +24,21 @@ public class UIController : MonoBehaviour
     {
         mainLayout.SetActive(!mainLayout.activeSelf);
         optionsLayout.SetActive(!optionsLayout.activeSelf);
-        difficultyText.text = "Difficulty " + GameManager.difficulty.ToString();
+        String difficulty=GameManager.difficulty.ToString();
+        switch (difficulty) {
+            case "1":
+                difficultyText.text = "Easy";
+                break;
+            case "2":
+                difficultyText.text = "Medium";
+                break;
+            case "3":
+                difficultyText.text = "Hard";
+                break;
+            default:
+                difficultyText.text = "Difficulty " + difficulty;
+                break;
+        }
         AudioManager.Instance.PlaySFX(buttonClick, 0.6f);
     }
 
@@ -31,8 +46,21 @@ public class UIController : MonoBehaviour
     {
         GameManager.difficulty += inc;
         GameManager.difficulty = Mathf.Clamp(GameManager.difficulty, 1, 3);
-        
-        difficultyText.text = "Difficulty " + GameManager.difficulty.ToString();
+        String difficulty=GameManager.difficulty.ToString();
+        switch (difficulty) {
+            case "1":
+                difficultyText.text = "Easy";
+                break;
+            case "2":
+                difficultyText.text = "Medium";
+                break;
+            case "3":
+                difficultyText.text = "Hard";
+                break;
+            default:
+                difficultyText.text = "Difficulty " + difficulty;
+                break;
+        }
         AudioManager.Instance.PlaySFX(buttonClick, 0.6f);
     }
 
