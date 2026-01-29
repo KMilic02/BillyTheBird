@@ -19,6 +19,8 @@ public partial class Player : MonoBehaviour, IDamageable
     Collider playerCollider;
     AudioSource glideSource;
 
+    bool dead;
+
     float invincibilityTimer = 0.0f;
     
     void Start()
@@ -172,6 +174,9 @@ public partial class Player : MonoBehaviour, IDamageable
 
     public void IOnDeath()
     {
+        if (dead)
+            return;
+        dead = true;
         GameManager.seeds -= seedsCollectedInScene;
         GameManager.feathers -= feathersCollectedInScene;
 
@@ -181,6 +186,7 @@ public partial class Player : MonoBehaviour, IDamageable
         transform.Rotate(transform.right, 180,0f);
         StartCoroutine(GameManager.Instance.FadeOut(() =>
         {
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.startMusic);
             GameManager.Instance.loadScene(SceneManager.GetActiveScene().name);
         }));
         enabled = false;

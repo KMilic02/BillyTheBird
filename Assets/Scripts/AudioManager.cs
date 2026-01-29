@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource sfxSource;
     public AudioSource musicSource;
+    
+    [HideInInspector] public AudioClip startMusic;
 
     void Awake()
     {

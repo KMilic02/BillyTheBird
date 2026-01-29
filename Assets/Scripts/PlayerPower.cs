@@ -27,12 +27,14 @@ public partial class Player : MonoBehaviour
     public void addSeeds(int amount)
     {
         seeds += amount;
+        seedsCollectedInScene += amount;
         updateUI();
     }
 
     public void addFeather()
     {
         feathers++;
+        feathersCollectedInScene++;
         updateUI();
     }
 }
