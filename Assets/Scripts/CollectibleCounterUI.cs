@@ -25,9 +25,9 @@ public class CollectibleCounterUI : MonoBehaviour
     private int lastFeatherCount = -1;
     private int lastSeedCount = -1;
 
-    private bool shownFirstSeedNotification = false;
-    private bool shownFirstFeatherNotification = false;
-    private bool shownSecondFeatherNotification = false;
+    static bool shownFirstSeedNotification = false;
+    static bool shownFirstFeatherNotification = false;
+    static bool shownSecondFeatherNotification = false;
 
     private Coroutine currentNotificationCoroutine;
 
