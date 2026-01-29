@@ -50,12 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (TryGetComponent<BossTag>(out var _))
         {
-            // Start coroutine on GameManager (persistent) instead of this enemy (about to be destroyed)
-            GameManager.Instance.StartCoroutine(GameManager.Instance.FadeOut(
-                () => GameManager.Instance.loadScene(
-                    GameManager.sceneList[GameManager.sceneList.IndexOf(SceneManager.GetActiveScene().name) + 1]
-                )
-            ));
+            playerRef.nextLevel();
         }
 
         // Stop all coroutines and disable immediately

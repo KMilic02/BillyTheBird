@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 0
-  attackClip: {fileID: 8300000, guid: 14e856f90eb356047880fa7fd87173bc, type: 3}
+  combatClip: {fileID: 8300000, guid: 73ea704c4e15e5f48a6e04fb96f3ebf2, type: 3}
   hitClip: {fileID: 8300000, guid: a11730ba7db2df241aad72187dd581cb, type: 3}
 --- !u!195 &243836306262390830
 NavMeshAgent:

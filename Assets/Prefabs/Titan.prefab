@@ -137,6 +137,7 @@ MonoBehaviour:
   lightningClip: {fileID: 8300000, guid: debd3a4d57ff83940a0303a67e6402dd, type: 3}
   clapClip: {fileID: 8300000, guid: dd8405021c1701644bbc9e2750ed83fc, type: 3}
   teleportClip: {fileID: 8300000, guid: 376ec0f0a25c1384ab986c3c67e3caeb, type: 3}
+  combatClip: {fileID: 8300000, guid: 73ea704c4e15e5f48a6e04fb96f3ebf2, type: 3}
 --- !u!114 &4135253383248672103
 MonoBehaviour:
   m_ObjectHideFlags: 0

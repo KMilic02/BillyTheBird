@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class ChampionBehaviour : EnemyBehaviour
 {
-    public AudioClip attackClip;
+    public AudioClip combatClip;
     public AudioClip hitClip;
 
     const float maxAggroRange = 20.0f;
@@ -17,7 +17,7 @@ public class ChampionBehaviour : EnemyBehaviour
 
     const float chargeDelay = 1.0f;
     const float chargeDuration = 0.6f;
-    const float chargeSpeed = 13.0f;
+    const float chargeSpeed = 19.0f;
     const float defaultAccel = 8.0f;
     const float defaultSpeed = 3.2f;
 
@@ -76,6 +76,7 @@ public class ChampionBehaviour : EnemyBehaviour
 
         if (Vector3.Distance(playerPosition, transform.position) <= enemy.acquisitionRange)
         {
+            AudioManager.Instance.PlayMusic(combatClip);
             enemyState = EnemyState.Aggro;
         }
     }
@@ -134,11 +135,13 @@ public class ChampionBehaviour : EnemyBehaviour
     {
         enemy.cooldownTimer = 0f;
         animator.SetTrigger("Attack");
-        AudioManager.Instance.PlaySFX(attackClip, 0.9f);
     }
 
     void charge()
     {
+        if (chargeDelayTimer == chargeDelay)
+            AudioManager.Instance.PlaySFX(hitClip, 1f);
+        
         if (chargeDelayTimer >= 0.0f)
         {
             agent.angularSpeed = 0.0f;
@@ -148,6 +151,9 @@ public class ChampionBehaviour : EnemyBehaviour
             chargeDelayTimer -= Time.deltaTime;
             return;
         }
+        
+        if (chargeTimer == chargeDuration)
+            AudioManager.Instance.PlaySFX(hitClip, 1f);
 
         if (chargeTimer >= 0.0f)
         {
@@ -177,8 +183,7 @@ public class ChampionBehaviour : EnemyBehaviour
         Vector3 hitCenter = transform.position + transform.forward * 1.0f;
 
         Collider[] hits = Physics.OverlapSphere(hitCenter, hitRadius);
-
-        AudioManager.Instance.PlaySFX(hitClip, 1f);
+        
         foreach (Collider hit in hits)
         {
             if (hit.CompareTag("Player"))

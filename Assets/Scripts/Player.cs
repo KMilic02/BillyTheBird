@@ -113,6 +113,15 @@ public partial class Player : MonoBehaviour, IDamageable
                 rigidbody.linearVelocity = contactNormal * bounceAmount;
         }*/
     }
+
+    public void nextLevel()
+    {
+        StartCoroutine(GameManager.Instance.FadeOut(
+            () => GameManager.Instance.loadScene(
+                GameManager.sceneList[GameManager.sceneList.IndexOf(SceneManager.GetActiveScene().name) + 1]
+            )
+        ));
+    }
     
     void checkProjectileCollision(Collider collision)
     {

@@ -25,11 +25,14 @@ public class TitanBehaviour : EnemyBehaviour
     const float clapDelayMin = 7.0f;
     const float clapDelayMax = 10.0f;
 
+    public GameObject clapObject;
+    
     float clapReturnTimer = 0.0f;
 
     public AudioClip lightningClip;
     public AudioClip clapClip;
     public AudioClip teleportClip;
+    public AudioClip combatClip;
     
     public void Start()
     {
@@ -77,6 +80,7 @@ public class TitanBehaviour : EnemyBehaviour
 
         if (Vector3.Distance(playerPosition, transform.position) <= enemy.acquisitionRange)
         {
+            AudioManager.Instance.PlayMusic(combatClip);
             enemyState = EnemyState.Aggro;
             enemy.cooldownTimer = enemy.attackCooldown / 2.0f;
         }
@@ -162,6 +166,8 @@ public class TitanBehaviour : EnemyBehaviour
 
             if (enemy.attackTimer >= 2.4f)
             {
+                clapObject.SetActive(true);
+                clapObject.GetComponent<ShineLogic>().enabled = true;
                 clapParticles.Play();
                 AudioManager.Instance.PlaySFX(clapClip, 1f);
 
