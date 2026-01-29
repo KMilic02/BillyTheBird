@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public GameObject pauseCanvas;
+    bool paused;
 
     public static readonly List<string> sceneList = new()
     {
@@ -39,6 +41,17 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name != "Level1" && SceneManager.GetActiveScene().name != "Level2")
+            return;
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
         }
     }
 
@@ -79,5 +92,29 @@ public class GameManager : MonoBehaviour
         }
         
         postFadeAction();
+    }
+
+    public void Pause()
+    {
+        pauseCanvas.SetActive(!pauseCanvas.activeSelf);
+        paused = !paused;
+        
+        if (paused)
+        {
+            Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

@@ -11,9 +11,9 @@ public partial class Player : MonoBehaviour, IDamageable
 
     [Header("Boss Bounce Settings")]
     [Tooltip("Upward force when bouncing off a boss")]
-    public float bossBounceUpForce = 8.0f;
+    const float bossBounceUpForce = 6.0f;
     [Tooltip("Horizontal force away from boss")]
-    public float bossBounceHorizontalForce = 5.0f;
+    const float bossBounceHorizontalForce = 9.0f;
 
     PlayerState playerState = new PlayerState();
     Collider playerCollider;
@@ -92,10 +92,13 @@ public partial class Player : MonoBehaviour, IDamageable
 
             if (isBoss)
             {
+                Debug.Log("here");
                 // Boss bounce: stronger and directional
-                Vector3 awayDirection = (transform.position - collision.transform.position).normalized;
+                Vector3 awayDirection = (transform.position - collision.transform.position);
                 awayDirection.y = 0f; // Only horizontal direction
-
+                awayDirection = awayDirection.normalized;
+                Debug.Log(awayDirection * bossBounceHorizontalForce + Vector3.up * bossBounceUpForce);
+                Debug.Log(awayDirection);
                 rigidbody.linearVelocity = awayDirection * bossBounceHorizontalForce + Vector3.up * bossBounceUpForce;
             }
             else

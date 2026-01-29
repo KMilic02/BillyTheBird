@@ -19,8 +19,8 @@ public partial class Player : MonoBehaviour
             Cursor.visible = false;
         }
         
-        Time.timeScale = Input.GetKey(KeyCode.C) ? 5f : 1f;
-        Time.timeScale = Input.GetKey(KeyCode.V) ? 0.2f : 1f;
+        //Time.timeScale = Input.GetKey(KeyCode.C) ? 5f : 1f;
+        //Time.timeScale = Input.GetKey(KeyCode.V) ? 0.2f : 1f;
     }
     
     void OnGUI()

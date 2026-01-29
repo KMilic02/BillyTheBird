@@ -11,7 +11,7 @@ public partial class Player
     
     void handleCameraRotation()
     {
-        var mouseMovement = Input.mousePositionDelta;
+        var mouseMovement = Input.mousePositionDelta * Time.timeScale;
         cameraRotation.x -= mouseMovement.y * cameraSensitivity;
         cameraRotation.x = Mathf.Clamp(cameraRotation.x, -90, 90);
         cameraRotation.y += mouseMovement.x * cameraSensitivity;
